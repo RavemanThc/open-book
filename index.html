@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Книга с 16 разделами</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ece9e6, #ffffff);
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .book-container {
+            position: relative;
+            width: 320px;
+            height: 420px;
+            perspective: 1500px;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .book.open {
+            transform: rotateY(-160deg);
+        }
+
+        .cover,
+        .pages {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            border: 2px solid #444;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .cover {
+            background: url("https://static.yakaboo.ua/media/catalog/product/9/7/9786177552887.jpg") center/cover no-repeat;
+            cursor: pointer;
+        }
+
+        .pages {
+            background: #fff;
+            transform: rotateY(180deg);
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            margin: 5px 0;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .sections {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+            overflow-y: auto;
+        }
+
+        .sections.visible {
+            display: flex;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .sections button {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+            padding: 6px 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.3s, transform 0.2s;
+            width: 100%;
+        }
+
+        .sections button:hover {
+            background: #e6e6e6;
+            transform: translateX(5px);
+        }
+
+        /* Viewer поверх книги */
+        .content-viewer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            border: 2px solid #444;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .content-viewer iframe {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-btn {
+            background: #f44336;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: flex-end;
+            border-bottom-left-radius: 5px;
+        }
+
+        .close-btn:hover {
+            background: #d32f2f;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="book-container">
+        <div class="book" id="book">
+            <div class="cover" id="cover"></div>
+            <div class="pages">
+                <h2>Разделы</h2>
+                <div class="sections" id="sections">
+                    <button type="button" data-url="http://paris-maker.github.io/chapter-1/">1.ВІДЧИНЯЄМО ДВЕРІ</button>
+                    <button type="button" data-url="https://st2.depositphotos.com/1000489/5184/v/450/depositphotos_51846985-stock-illustration-old-open-book.jpg">2. ГЕНІАЛЬНІСТЬ У ПРОСТОТІ</button>
+                    <button type="button" data-url="https://example.com/3">3.НАВЧАННЯ — ЦЕ ТВОРЧІСТЬ</button>
+                    <button type="button" data-url="https://example.com/4">4.ФРАГМЕНТАЦІЯ Й УНИКАННЯ ІЛЮЗІЇ ЗНАННЯ</button>
+                    <button type="button" data-url="https://ravemanthc.github.io/part-5/">5.БОРОТЬБА З ВІДКЛАДАННЯМ НА ПОТІМ</button>
+                    <button type="button" data-url="https://ravemanthc.github.io/part-6/">6.СКРІЗЬ ЗОМБІ</button>
+                    <button type="button" data-url="https://allapavuk.github.io/Homework1/">7.ЗАСВОЄННЯ ЗАМІСТЬ ЗАЦІПЕНІННЯ</button>
+                    <button type="button" data-url="https://allapavuk.github.io/Homework1.chapter8/">8.ПОРАДИ, ПРИЙОМИ Й ІНСТРУМЕНТАРІЙ</button>
+                    <button type="button" data-url="https://example.com/9">9.ПРО ЗОМБІ-ПРОКРАСТИНАЦІЇ: РОБИМО
+                    ВИСНОВКИ</button>
+                    <button type="button" data-url="https://slezerem.github.io/h/">10.РОЗВИТОК ПАМ’ЯТІ</button>
+                    <button type="button" data-url="https://slezerem.github.io/home/">11.ЩЕ ТРОХИ ПРО ПАМʼЯТЬ</button>
+                    <button type="button" data-url="https://tymofii-danilov.github.io/chapter-12/">12.УЧИМОСЯ ЦІНУВАТИ СВОЇ ТАЛАНТИ</button>
+                    <button type="button" data-url="https://tymofii-danilov.github.io/chapter-13/">13.ЯК САМОМУ «ВИЛІПИТИ» СВІЙ МОЗОК</button>
+                    <button type="button" data-url="https://example.com/14">14.ЯК РОЗВИВАТИ «ВНУТРІШНЄ ОКО» ЗА
+                    ДОПОМОГОЮ ПОЕЗІЇ ФОРМУЛ</button>
+                    <button type="button" data-url="https://example.com/15">15.ВІДРОДЖЕННЯ НАВЧАННЯ</button>
+                    <button type="button" data-url="https://example.com/16">16. ЯК УНИКАТИ НАДМІРНОЇ САМОВПЕВНЕНОСТІ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-viewer" id="viewer">
+            <button class="close-btn" id="closeBtn">X</button>
+            <iframe id="content-frame"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const book = document.getElementById('book');
+        const cover = document.getElementById('cover');
+        const sections = document.getElementById('sections');
+        const viewer = document.getElementById('viewer');
+        const frame = document.getElementById('content-frame');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // открыть/закрыть книгу
+        cover.addEventListener('click', () => {
+            book.classList.toggle('open');
+            if (book.classList.contains('open')) {
+                sections.classList.add('visible');
+            } else {
+                sections.classList.remove('visible');
+            }
+        });
+
+        // открытие раздела
+        sections.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-url]');
+            if (!btn) return;
+            e.stopPropagation();
+            const url = btn.getAttribute('data-url');
+            frame.src = url;
+            viewer.style.display = 'flex';
+        });
+
+        // закрыть просмотр
+        closeBtn.addEventListener('click', () => {
+            viewer.style.display = 'none';
+            frame.src = "";
+        });
+    </script>
+</body>
+
+</html>
