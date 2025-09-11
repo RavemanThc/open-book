@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Книга с 16 разделами</title>
+    <title>blended-6 mindmap </title>
     <style>
         body {
             display: flex;
@@ -15,12 +15,29 @@
             font-family: "Segoe UI", sans-serif;
         }
 
-        .book-container {
-            position: relative;
-            width: 320px;
-            height: 420px;
-            perspective: 1500px;
-        }
+.book-container {
+  position: relative;
+  width: 280px;   /* базовый размер для телефона */
+  height: 370px;
+  perspective: 1500px;
+}
+
+/* Для экранов шире 768px (планшет/ноутбук) */
+@media (min-width: 768px) {
+  .book-container {
+    width: 320px;   /* +30% от базового */
+    height: 4;
+  }
+}
+
+/* Для экранов шире 1200px (большие ноуты/мониторы) */
+@media (min-width: 1200px) {
+  .book-container {
+    width: 400px;
+    height: 520px;
+  }
+}
+
 
         .book {
             width: 100%;
@@ -153,7 +170,8 @@
         <div class="book" id="book">
             <div class="cover" id="cover"></div>
             <div class="pages">
-                <h2>Разделы</h2>
+                <h2>MindMap</h2>
+                <h3><i>blended-6</i></h3>
                 <div class="sections" id="sections">
                     <button type="button" data-url="http://paris-maker.github.io/chapter-1/">1.ВІДЧИНЯЄМО ДВЕРІ</button>
                     <button type="button" data-url="http://paris-maker.github.io/chapter-2/">2. ГЕНІАЛЬНІСТЬ У ПРОСТОТІ</button>
@@ -191,7 +209,7 @@
         const frame = document.getElementById('content-frame');
         const closeBtn = document.getElementById('closeBtn');
 
-        // открыть/закрыть книгу
+        
         cover.addEventListener('click', () => {
             book.classList.toggle('open');
             if (book.classList.contains('open')) {
@@ -201,7 +219,7 @@
             }
         });
 
-        // открытие раздела
+        
         sections.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-url]');
             if (!btn) return;
@@ -211,7 +229,7 @@
             viewer.style.display = 'flex';
         });
 
-        // закрыть просмотр
+
         closeBtn.addEventListener('click', () => {
             viewer.style.display = 'none';
             frame.src = "";
